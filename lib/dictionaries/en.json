@@ -1,0 +1,23 @@
+{
+  "title": "Linus Code Review",
+  "subtitle": "Get your pull request brutally reviewed by Linus Torvalds himself",
+  "imageAlt": "Linus Torvalds reviewing code",
+  "form": {
+    "title": "Submit Your PR for Linus' Review",
+    "warning": "Warning: Linus doesn't hold back. Prepare for brutally honest feedback that might make you question your life choices.",
+    "placeholder": "Enter GitHub PR URL (e.g., https://github.com/owner/repo/pull/123)",
+    "submit": "Get Roasted by Linus",
+    "analyzing": "Analyzing..."
+  },
+  "errors": {
+    "title": "Error",
+    "emptyUrl": "Please enter a valid GitHub Pull Request URL",
+    "failed": "Failed to analyze PR"
+  },
+  "results": {
+    "title": "Linus Says:"
+  },
+  "donation": {
+    "button": "Buy Me a Coffee"
+  }
+}
