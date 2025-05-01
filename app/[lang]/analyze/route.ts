@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { analyzePr } from "@/app/_lib/analyze-pr";
+import { analyzePr } from "@/_api/analyze-pr";
 
 export async function POST(
   req: NextRequest,

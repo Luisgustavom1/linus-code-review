@@ -13,7 +13,7 @@ interface PrAnalyzerProps {
   lang: string
 }
 
-export function PrAnalyzer({ dict, lang }: PrAnalyzerProps) {
+export function PrAnalyzer({ dict }: PrAnalyzerProps) {
   const [prUrl, setPrUrl] = useState("")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysis, setAnalysis] = useState<string | null>(null)
@@ -29,7 +29,7 @@ export function PrAnalyzer({ dict, lang }: PrAnalyzerProps) {
       setIsAnalyzing(true)
       setError(null)
       setAnalysis(null)
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pr/analyze`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export function PrAnalyzer({ dict, lang }: PrAnalyzerProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <>
       <Card className="p-6 bg-gray-50 border-gray-300">
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-gray-800">{dict.form.title}</h2>
@@ -104,6 +104,6 @@ export function PrAnalyzer({ dict, lang }: PrAnalyzerProps) {
           </div>
         </Card>
       )}
-    </div>
+    </>
   )
 }

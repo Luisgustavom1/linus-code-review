@@ -1,20 +1,23 @@
 import { PrAnalyzer } from "@/components/pr-analyzer"
 import { LanguageSwitcher } from "@/components/language-switcher"
-import Script from 'next/script'
 import { getDictionary } from "@/lib/dictionaries"
+import Image from "next/image"
 
 export default async function Home({
-  params: { lang },
+  params,
 }: {
-  params: { lang: string }
+  params: Promise<{ lang: string }>
 }) {
+  const { lang } = await params
   const dict = await getDictionary(lang)
 
   return (
     <main className="min-h-screen p-4 md:p-24 max-w-4xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex gap-3 flex-wrap justify-center sm:justify-between items-center mb-6">
         <LanguageSwitcher currentLang={lang} />
-        <Script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="luisao" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></Script>
+        <a href="https://www.buymeacoffee.com/luisao" target="_blank">
+          <Image src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width={160} height={45} />
+        </a>
       </div>
 
       <div className="space-y-6">
