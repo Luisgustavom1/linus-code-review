@@ -15,13 +15,18 @@ function extractPrInfo(prUrl: string) {
 async function fetchPrData(prUrl: string) {
   const { owner, repo, prNumber } = extractPrInfo(prUrl)
 
-  // Fetch PR details
-  const prResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`)
 
   let prData = { title: "", body: "" }
-  if (prResponse.ok) {
-    prData = await prResponse.json()
-  }
+  try {
+    const prResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`)
+
+    if (prResponse.ok) {
+      prData = await prResponse.json()
+    }
+  } catch (error) {
+    console.error("Error fetching PR data:", error)
+    throw error
+  }  
 
   // Fetch PR diffs
   const diffs = await fetch(`${prUrl}.diff`)
