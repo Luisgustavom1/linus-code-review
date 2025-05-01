@@ -25,16 +25,24 @@ export function PrAnalyzer({ dict }: PrAnalyzerProps) {
       return
     }
 
+    const lastPart = prUrl.split('/').pop()
+    const endsWithNumber = lastPart?.match(/\d+/)
+    if (!prUrl.startsWith("https://github.com/") || (lastPart && !endsWithNumber)) {
+      setError(dict.errors.emptyUrl)
+      return
+    }
+
     try {
       setIsAnalyzing(true)
       setError(null)
       setAnalysis(null)
+      const cleanUrl = prUrl.endsWith("/") ? prUrl.slice(0, -1) : prUrl
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prUrl }),
+        body: JSON.stringify({ prUrl: cleanUrl }),
       })
       const { result } = await response.json()
       setAnalysis(result)
