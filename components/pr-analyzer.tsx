@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Loader2, AlertCircle, MessageSquare } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { analyzePr } from "@/lib/analyze-pr"
 import type { Dictionary } from "@/lib/dictionaries"
 
 interface PrAnalyzerProps {
@@ -30,8 +29,14 @@ export function PrAnalyzer({ dict, lang }: PrAnalyzerProps) {
       setIsAnalyzing(true)
       setError(null)
       setAnalysis(null)
-
-      const result = await analyzePr(prUrl, lang)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pr/analyze`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prUrl }),
+      })
+      const { result } = await response.json()
       setAnalysis(result)
     } catch (err) {
       setError(err instanceof Error ? err.message : dict.errors.failed)
@@ -62,7 +67,7 @@ export function PrAnalyzer({ dict, lang }: PrAnalyzerProps) {
               {isAnalyzing ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {dict.form.analyzing} (Gemini)
+                  {dict.form.analyzing}
                 </>
               ) : (
                 dict.form.submit

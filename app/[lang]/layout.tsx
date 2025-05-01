@@ -1,7 +1,6 @@
 import type React from "react"
 import "../globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { getDictionary } from "@/lib/dictionaries"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -16,8 +15,6 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { lang: string }
 }) {
-  const dict = await getDictionary(params.lang)
-
   return (
     <html lang={params.lang}>
       <body>

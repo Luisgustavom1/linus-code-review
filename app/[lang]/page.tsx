@@ -1,8 +1,7 @@
 import { PrAnalyzer } from "@/components/pr-analyzer"
 import { LanguageSwitcher } from "@/components/language-switcher"
-import { DonationButton } from "@/components/donation-button"
-import { getDictionary } from "@/lib/dictionaries"
 import Script from 'next/script'
+import { getDictionary } from "@/lib/dictionaries"
 
 export default async function Home({
   params: { lang },

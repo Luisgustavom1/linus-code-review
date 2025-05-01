@@ -1,7 +1,6 @@
 import { generateText } from "ai"
 import { google } from "@ai-sdk/google"
 
-// Function to extract owner, repo, and PR number from GitHub PR URL
 function extractPrInfo(prUrl: string) {
   const regex = /github\.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/
   const match = prUrl.match(regex)
@@ -17,7 +16,6 @@ function extractPrInfo(prUrl: string) {
   }
 }
 
-// Function to fetch PR data from GitHub API
 async function fetchPrData(owner: string, repo: string, prNumber: number) {
   // Fetch PR details
   const prResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`)
@@ -44,7 +42,6 @@ async function fetchPrData(owner: string, repo: string, prNumber: number) {
   }
 }
 
-// Main function to analyze PR
 export async function analyzePr(prUrl: string, lang: string): Promise<string> {
   try {
     const { owner, repo, prNumber } = extractPrInfo(prUrl)
@@ -86,7 +83,6 @@ ${file.patch ? file.patch.substring(0, 1000) + (file.patch.length > 1000 ? "... 
 Please provide a brutally honest review of this PR in the style of Linus Torvalds. Respond in ${lang === "pt-br" ? "Brazilian Portuguese" : "English"}.
 `
 
-    // Use AI SDK to analyze the PR [^1]
     const { text } = await generateText({
       model: google("gemini-1.5-pro"),
       system: `You are Linus Torvalds reviewing code. Be brutally honest, direct, and don't hold back. Use colorful language (but avoid actual profanity) and strong opinions. Point out stupid mistakes and bad design decisions with your characteristic bluntness. If you see good code, acknowledge it briefly, but focus on what could be improved. Your tone should be harsh but technically accurate. Make references to kernel development principles even when reviewing non-kernel code. Respond in ${lang === "pt-br" ? "Brazilian Portuguese" : "English"}.`,
