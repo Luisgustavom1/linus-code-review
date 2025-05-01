@@ -5,14 +5,10 @@ function extractPrInfo(prUrl: string) {
   const regex = /github\.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/
   const match = prUrl.match(regex)
 
-  if (!match) {
-    throw new Error("Invalid GitHub PR URL format")
-  }
-
   return {
-    owner: match[1],
-    repo: match[2],
-    prNumber: Number.parseInt(match[3], 10),
+    owner: match?.[1],
+    repo: match?.[2],
+    prNumber: Number.parseInt(match?.[3] || "", 10),
   }
 }
 
@@ -22,10 +18,10 @@ async function fetchPrData(prUrl: string) {
   // Fetch PR details
   const prResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}`)
 
-  if (!prResponse.ok) {
-    throw new Error(`Failed to fetch PR: ${prResponse.statusText}`)
+  let prData = { title: "", body: "" }
+  if (prResponse.ok) {
+    prData = await prResponse.json()
   }
-  const prData = await prResponse.json()
 
   // Fetch PR diffs
   const diffs = await fetch(`${prUrl}.diff`)

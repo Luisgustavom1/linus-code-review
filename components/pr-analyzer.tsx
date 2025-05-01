@@ -26,8 +26,8 @@ export function PrAnalyzer({ dict }: PrAnalyzerProps) {
     }
 
     const lastPart = prUrl.split('/').pop()
-    const endsWithNumber = lastPart?.match(/\d+/)
-    if (!prUrl.startsWith("https://github.com/") || (lastPart && !endsWithNumber)) {
+    const endsWithFiles = lastPart?.includes("files") || lastPart?.includes("checks") || lastPart?.includes("commits")
+    if (!prUrl.startsWith("https://github.com/") || (lastPart && endsWithFiles)) {
       setError(dict.errors.emptyUrl)
       return
     }
