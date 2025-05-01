@@ -1,5 +1,4 @@
 import type React from "react"
-import "../globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import type { Metadata } from "next"
 import Script from "next/script"
