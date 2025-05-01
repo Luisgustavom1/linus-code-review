@@ -13,7 +13,7 @@ interface PrAnalyzerProps {
   lang: string
 }
 
-export function PrAnalyzer({ dict }: PrAnalyzerProps) {
+export function PrAnalyzer({ dict, lang }: PrAnalyzerProps) {
   const [prUrl, setPrUrl] = useState("")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysis, setAnalysis] = useState<string | null>(null)
@@ -37,7 +37,7 @@ export function PrAnalyzer({ dict }: PrAnalyzerProps) {
       setError(null)
       setAnalysis(null)
       const cleanUrl = prUrl.endsWith("/") ? prUrl.slice(0, -1) : prUrl
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/analyze`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${lang}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
