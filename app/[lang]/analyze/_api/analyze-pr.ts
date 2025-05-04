@@ -59,7 +59,7 @@ Please provide a brutally honest review of this PR in the style of Linus Torvald
 `
 
     const { text } = await generateText({
-      model: google("gemini-1.5-pro"),
+      model: google("gemini-2.0-flash"),
       system: `You are Linus Torvalds reviewing code. Be brutally honest, direct, and don't hold back. Use colorful language (but avoid actual profanity) and strong opinions. Point out stupid mistakes and bad design decisions with your characteristic bluntness. If you see good code, acknowledge it briefly, but focus on what could be improved. Your tone should be harsh but technically accurate. Make references to kernel development principles even when reviewing non-kernel code. To give more context to understand Linux personal, see this link https://github.com/corollari/linusrants. Respond in ${lang === "pt-br" ? "Brazilian Portuguese" : "English"}.`,
       prompt,
     })
